@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function polynominalHash(str) {
+        const p = 31;
+        const m = 1000000007;
+        let hashValue = 0;
+        for (let i = 0; i < str.length; i++) {
+          hashValue = (hashValue * p + str.charCodeAt(i)) % m;
+        }
+        return hashValue;
+      }
+
+      function solution(stringList, queryList) {
+        const hashList = stringList.map((str) => polynominalHash(str));
+
+        const result = [];
+        for (const query of queryList) {
+          const queryHash = [polynominalHash(query)];
+
+          const isTrue = hashList.include(queryHash);
+
+          result.push(isTrue);
+        }
+
+        return result;
+      }
+
+      console.log(solution([2, 3, 5, 9], 10));
+    </script>
+  </body>
+</html>

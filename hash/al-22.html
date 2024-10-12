@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(record) {
+        let answer = [];
+        const uid = {};
+
+        for (let line in record) {
+          let [action, id, nickname] = record[line].split(" ");
+
+          if (action !== "Leave") {
+            uid[id] = nickname;
+          }
+        }
+
+        for (let line in record) {
+          let [action, id, nickname] = record[line].split(" ");
+
+          const lineArr = record[line].split(" ");
+          const nickName = uid[id];
+
+          if (action === "Enter") {
+            answer.push(nickName + "님이 들어왔습니다.");
+          } else if (action === "Leave") {
+            answer.push(nickName + "님이 나갔습니다.");
+          }
+        }
+
+        return answer;
+      }
+
+      console.log(
+        solution([
+          "Enter uid1234 Muzi",
+          "Enter uid4567 Prodo",
+          "Leave uid1234",
+          "Enter uid1234 Prodo",
+          "Change uid4567 Ryan",
+        ])
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function isEqual(obj1, obj2) {
+        const obj1Keys = Object.keys(obj1);
+
+        for (const key of obj1Keys) {
+          const value1 = obj1[key];
+          const value2 = obj2[key];
+
+          if (value1 !== value2) return false;
+        }
+
+        return true;
+      }
+
+      function solution(want, number, discount) {
+        const wantObj = {};
+
+        for (let i = 0; i < want.length; i++) {
+          wantObj[want[i]] = number[i];
+        }
+
+        let answer = 0;
+
+        for (let i = 0; i < discount.length - 9; i++) {
+          const discount10Obj = {};
+
+          for (let j = i; j < i + 10; j++) {
+            let discountItem = discount[j];
+
+            if (wantObj[discountItem]) {
+              discount10Obj[discountItem] =
+                (discount10Obj[discountItem] || 0) + 1;
+            }
+          }
+
+          if (isEqual(discount10Obj, wantObj)) {
+            answer += 1;
+          }
+        }
+
+        return answer;
+      }
+
+      console.log(
+        solution(
+          ["banana", "apple", "rice", "pork", "pot"],
+          [3, 2, 2, 2, 1],
+          [
+            "chicken",
+            "apple",
+            "apple",
+            "banana",
+            "rice",
+            "apple",
+            "pork",
+            "banana",
+            "pork",
+            "rice",
+            "pot",
+            "banana",
+            "apple",
+            "banana",
+          ]
+        )
+      );
+    </script>
+  </body>
+</html>

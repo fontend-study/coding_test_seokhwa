@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(participant, completion) {
+        const hash = {};
+
+        for (const p of participant) {
+          if (hash[p]) {
+            hash[p] += 1;
+          } else {
+            hash[p] = 1;
+          }
+        }
+
+        for (const c of completion) {
+          hash[c] -= 1;
+        }
+
+        for (const key in hash) {
+          if (hash[key] > 0) return key;
+        }
+      }
+
+      console.log(solution(["leo", "kiki", "eden"], ["leo", "kiki"]));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function countSort(arr, target) {
+        const hashtable = new Array(target + 1).fill(0);
+
+        for (let num of arr) {
+          if (num < target) {
+            hashtable[num] = 1;
+          }
+        }
+
+        return hashtable;
+      }
+
+      function solution(arr, target) {
+        const hashtable = countSort(arr, target);
+
+        for (let num of arr) {
+          const complement = target - num;
+
+          const isTrue = complement !== num && hashtable[complement] === 1;
+
+          if (isTrue) return true;
+        }
+
+        return false;
+      }
+
+      console.log(solution([2, 3, 5, 9], 10));
+    </script>
+  </body>
+</html>
