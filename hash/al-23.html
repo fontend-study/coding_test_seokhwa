@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(genres, plays) {
+        // const totalCnt = {};
+        // const top2 = {};
+
+        // for (let i = 0; i < genres.length; i++) {
+        //   const genre = genres[i];
+        //   const play = plays[i];
+        //   const totalGenre = totalCnt[genre];
+        //   const top2Genre = top2[genre];
+
+        //   totalCnt[genre] = !totalGenre ? play : totalCnt[genre] + play;
+
+        //   if (!top2Genre) {
+        //     top2[genre] = [{ [i]: play }];
+        //   } else {
+        //     top2[genre].push({ [i]: play });
+        //   }
+        // }
+
+        // console.log("totalCnt: ", totalCnt);
+        // console.log("top2: ", top2);
+
+        console.log("--------------------------------------");
+
+        const answer = [];
+        const genresObj = {};
+        const playObj = {};
+
+        for (let i = 0; i < genres.length; i++) {
+          const genre = genres[i];
+          const play = plays[i];
+
+          if (!(genre in genresObj)) {
+            genresObj[genre] = [];
+            playObj[genre] = 0;
+          }
+
+          genresObj[genre].push([i, play]);
+          playObj[genre] += play;
+        }
+
+        const sortedGenres = Object.keys(playObj).sort((a, b) => {
+          return playObj[b] - playObj[a];
+        });
+
+        let sortedSongs = null;
+
+        for (let genre of sortedGenres) {
+          const sortedSongs = genresObj[genre].sort((a, b) => {
+            return a[1] === b[1] ? a[0] - b[0] : b[1] - a[1];
+          });
+
+          answer.push(...sortedSongs.slice(0, 2).map((song) => song[0]));
+        }
+
+        return answer;
+      }
+
+      console.log(
+        solution(
+          ["classic", "pop", "classic", "classic", "pop"],
+          [500, 600, 150, 800, 2500]
+        )
+      );
+    </script>
+  </body>
+</html>

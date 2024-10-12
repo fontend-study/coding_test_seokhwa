@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(id_list, report, k) {
+        // const answer = [];
+
+        // const count = {};
+
+        // for (let i = 0; i < id_list.length; i++) {
+        //   const user = id_list[i];
+        //   count[user] = 0;
+        // }
+        // console.log("count1: ", count);
+
+        // for (let j = 0; j < report.length; j++) {
+        //   const r = report[j];
+        //   const rArr = r.split(" ");
+
+        //   const user = rArr[1];
+        //   count[user] += 1;
+        // }
+
+        // console.log(count);
+
+        const reportedUser = {};
+        const count = {};
+
+        for (let r of report) {
+          const [userId, reportedId] = r.split(" ");
+
+          if (reportedUser[reportedId] === undefined) {
+            reportedUser[reportedId] = new Set();
+          }
+
+          reportedUser[reportedId].add(userId);
+        }
+        console.log("reportedUser: ", reportedUser);
+
+        for (let reportedId of Object.keys(reportedUser)) {
+          if (reportedUser[reportedId].size >= k) {
+            for (const uid of reportedUser[reportedId]) {
+              console.log("---------uid: ", uid);
+              count[uid] = (count[uid] || 0) + 1;
+            }
+          }
+        }
+
+        const answer = [];
+
+        for (let i = 0; i < id_list.length; i++) {
+          answer.push(count[id_list[i]] || 0);
+        }
+
+        return answer;
+      }
+
+      console.log(
+        solution(
+          ["muzi", "frodo", "apeach", "neo"],
+          [
+            "muzi frodo",
+            "apeach frodo",
+            "frodo neo",
+            "muzi neo",
+            "apeach muzi",
+          ],
+          2
+        )
+      );
+    </script>
+  </body>
+</html>
